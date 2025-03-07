@@ -1,5 +1,6 @@
 package com.dwes.api.controladores;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/api/v1/jabones")
@@ -41,6 +43,34 @@ public class JabonController {
 	
     @Autowired
     private JabonService jabonService;
+
+
+    @GetMapping("/{id}/clima")
+    public ResponseEntity<Map<String, Object>> obtenerClimaDeJabon(@PathVariable Long id) {
+        // 1) Buscar el Jabon
+        Jabon jabon = jabonService.findById(id)
+                .orElseThrow(() -> new JabonNotFoundException("No existe el jabón con id " + id));
+
+        // 2) Supongamos que 'jabon' tiene un campo 'ciudad' con el valor "Madrid"
+        String ciudad = jabon.getCiudad();
+
+        // 3) Llamada HTTP a la API externa (WeatherAPI) con RestTemplate o WebClient:
+        //    Por simplicidad, pseudo-código:
+        String apiKey = "30fdc1fdc0374cc681a75138250703";
+        String url = "http://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + ciudad;
+
+        RestTemplate restTemplate = new RestTemplate();
+        Map respClima = restTemplate.getForObject(url, Map.class);
+
+        // 4) Construir la respuesta
+        Map<String, Object> resultado = new HashMap<>();
+        resultado.put("jabonId", jabon.getId());
+        resultado.put("nombre", jabon.getNombre());
+        resultado.put("ciudad", ciudad);
+        resultado.put("infoClima", respClima);
+
+        return ResponseEntity.ok(resultado);
+    }
 
    /**
     * 

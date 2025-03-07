@@ -27,8 +27,24 @@ public class InicializarDatos implements CommandLineRunner {
     
 	@Override
 	public void run(String... args) throws Exception {
-		
 
+		String[] ciudades = {
+				"Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza", "Málaga", "Murcia", "Palma de Mallorca",
+				"Las Palmas de Gran Canaria", "Bilbao", "Alicante", "Córdoba", "Valladolid", "Vigo", "Gijón",
+				"Hospitalet de Llobregat", "Vitoria-Gasteiz", "A Coruña", "Elche", "Granada", "Oviedo",
+				"Santa Cruz de Tenerife", "Badalona", "Cartagena", "Terrassa", "Jerez de la Frontera", "Sabadell",
+				"Móstoles", "Alcalá de Henares", "Pamplona", "Fuenlabrada", "Almería", "San Sebastián", "Leganés",
+				"Santander", "Castellón de la Plana", "Burgos", "Albacete", "Getafe", "Alcorcón", "Logroño",
+				"Badajoz", "Salamanca", "Huelva", "Tarragona", "Lleida", "Marbella", "Dos Hermanas", "León", "Cádiz",
+				"Mataró", "Santa Coloma de Gramenet", "Jaén", "Algeciras", "Ourense", "Torrejón de Ardoz", "Lugo",
+				"Lérida", "San Cristóbal de La Laguna", "Santiago de Compostela", "Boadilla del Monte", "San Fernando",
+				"Ponferrada", "Mérida", "Manresa", "Roquetas de Mar", "Ávila", "Benidorm", "Zamora", "Cuenca",
+				"Segovia", "Palencia", "Melilla", "Ceuta", "Torremolinos", "Linares", "Motril", "Gandía", "Orihuela",
+				"Rivas-Vaciamadrid", "Arrecife", "San Vicente del Raspeig", "Chiclana de la Frontera",
+				"Sanlúcar de Barrameda", "La Línea de la Concepción", "Puerto de la Cruz", "Talavera de la Reina",
+				"Puerto Real", "Rubí", "Ferrol", "Elda", "Majadahonda", "Viladecans", "Torrelavega", "Coslada",
+				"El Puerto de Santa María", "Vélez-Málaga", "Castelldefels", "Utrera", "Alcoy"
+		};
 
         for (int i = 0; i < 100; i++) {
             Jabon jabon = new Jabon();
@@ -37,6 +53,7 @@ public class InicializarDatos implements CommandLineRunner {
             jabon.setDescripcion(faker.lorem().sentence());
             jabon.setStock(faker.number().numberBetween(0, 100));
             jabon.setImagenUrl(generarUrlImagenAleatoria());
+			jabon.setCiudad(ciudades[i]);
             jabon.setAroma(faker.lorem().word());
             jabon.setTipoDePiel(TipoDePiel.values()[faker.random().nextInt(TipoDePiel.values().length)]); // Asume que tienes una enumeración TipoDePiel
             

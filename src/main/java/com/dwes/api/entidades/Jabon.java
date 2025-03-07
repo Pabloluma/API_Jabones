@@ -21,6 +21,8 @@ public class Jabon extends Producto {
     @Enumerated(EnumType.STRING)
     private TipoDePiel tipoDePiel;
 
+	private String ciudad;
+
     @ElementCollection
     @CollectionTable(name = "jabon_ingredientes", joinColumns = @JoinColumn(name = "jabon_id"))
     private List<Ingrediente> ingredientes = new ArrayList<>();
@@ -47,6 +49,13 @@ public class Jabon extends Producto {
 
 	public void setIngredientes(List<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 	
 	
